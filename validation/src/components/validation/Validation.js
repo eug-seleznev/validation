@@ -24,7 +24,6 @@ const ValidationForm = () => {
       e.preventDefault();
       //server validation
       ValidateCode(code).then((res) => {
-        console.log(res, 'res here')
         if (res.status) {
             console.log('success')
           setWinner({ loaded: true, win: res.value, auth: true });
@@ -44,7 +43,7 @@ const ValidationForm = () => {
             <input
               type="text"
               placeholder="Валидационный код"
-              defaultValue={code}
+              defaultValue={code.code}
               onChange={(e) => setCode({ code: e.target.value })}
             />
             <button type="submit">Отправить</button>
@@ -57,7 +56,10 @@ const ValidationForm = () => {
               </div>
             ) : (
               <div>
-                <p> уже использоваили</p>
+                <p>
+                  
+                  <b>Неверный код</b>
+                </p>
               </div>
             )}
           </div>
