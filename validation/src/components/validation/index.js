@@ -10,7 +10,6 @@ const Validation = ({match}) => {
     const [loaded, setLoaded] = useState(false)
     useEffect(() => 
     {
-        //server call, and true if success
         ValidateLink(link).then(res => {
             setLoaded(res)
         })
@@ -48,7 +47,7 @@ const ValidateLink = async (link) => {
         const res = await axios.get(ip + `codes/qr/${link}`);
         return true
     } catch (err) {
-        let msg = err.response.data.err
+        // let msg = err.response.data.err
         return false
     
     }
