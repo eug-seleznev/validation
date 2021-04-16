@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    container_name: buro-docs
+    container_name: validation
     restart: always
     build: .
     ports:
