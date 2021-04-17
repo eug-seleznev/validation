@@ -18,21 +18,19 @@ const Validation = ({match}) => {
     [link]);
     
     return (
-        <div>
-            <h1> hello world</h1>
-            {loaded ? <div>
-                
-                <p> Итак, вы почти выиграли - осталось ввести валидационный код</p>
-                <ValidationForm />
-                </div> : (
-                    <div>
-                        <p> Страница не найдена!</p>
-                    </div>
-                )}
-        
-        
-        </div>
-    )
+      <div>
+        {loaded ? (
+          <div>
+            <h3> Итак, вы почти выиграли - осталось ввести валидационный код</h3>
+            <ValidationForm link={link} />
+          </div>
+        ) : (
+          <div>
+            <p> Страница не найдена!</p>
+          </div>
+        )}
+      </div>
+    );
 }
 
 

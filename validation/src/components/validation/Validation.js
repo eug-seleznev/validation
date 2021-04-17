@@ -1,38 +1,71 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 
 import axios from "axios";
+import WinAnimation from "./Animation";
 
 const ip = process.env.REACT_APP_IP;
 
 
 
 
-const ValidationForm = () => {
+const ValidationForm = ({link}) => {
 
-
+  const [inpuRef, setInputFocus] = useFocus()
+  const ref = useRef()
+  const [focusIndex, setFocusIndex] = useState(1)
+  const [validationCode, setValidationCode] = useState('')
     const [code, setCode] = useState({
-        code: ''
-    })
+      code1: "",
+      code2: "",
+      code3: "",
+      code4: "",
+    });
     const [winners, setWinner] = useState({
         loaded: false,
         win: null,
         auth: false
     })
 
+
+    useEffect(() => {
+      setInputFocus()
+      console.log(focusIndex)
+      const nextSibling = document.querySelector(
+        `input[name=code${focusIndex}]`
+      );
+      if(nextSibling){
+      nextSibling.focus();
+
+      }
+    }, [focusIndex])
+
+
     const onSubmit = (e) => {
       e.preventDefault();
+      setValidationCode(Object.values(code).join(""))
       //server validation
-      ValidateCode(code).then((res) => {
+
+      ValidateCode(validationCode).then((res) => {
         if (res.status) {
-            console.log('success')
           setWinner({ loaded: true, win: res.value, auth: true });
         } else {
-            console.log('ermmmmm')
           setWinner({ loaded: true, auth: false });
         }
       });
     }
+
+
+    const handleCode = (e) => {
+    if(e.target.value.length==4 && focusIndex<4){
+      setFocusIndex(focusIndex+1)
+      console.log(focusIndex)
+      
+    }
+    setCode({ ...code, [e.target.name]: e.target.value });
+    console.log(code)
+    }
+
 
 
     
@@ -40,25 +73,37 @@ const ValidationForm = () => {
       <div>
         {!winners.loaded ? (
           <form onSubmit={onSubmit}>
-            <input
-              type="text"
-              placeholder="Валидационный код"
-              defaultValue={code.code}
-              onChange={(e) => setCode({ code: e.target.value })}
-            />
+            {Object.keys(code).map((key, index) => {
+              return (
+                <input
+                  ref={0 === index ? inpuRef : ref}
+                  type="text"
+                  name={key}
+                  defaultValue={code[key]}
+                  placeholder={"key"}
+                  maxLength={4}
+                  onChange={handleCode}
+                />
+              );
+            })}
+
             <button type="submit">Отправить</button>
           </form>
         ) : (
           <div>
             {winners.auth ? (
-              <div>
-                <p> win {winners.win}</p>
-              </div>
+              <WinAnimation win={winners.win} code={validationCode} />
             ) : (
               <div>
                 <p>
-                  
                   <b>Неверный код</b>
+                  <button
+                    onClick={() =>
+                      setWinner({ loaded: false, win: null, auth: null })
+                    }
+                  >
+                    Повторить
+                  </button>
                 </p>
               </div>
             )}
@@ -77,9 +122,11 @@ export default ValidationForm
 
 
 
-const ValidateCode = async (code) => {
+const ValidateCode = async (joinedCode) => {
     try {
-        console.log(code)
+        const code ={
+          code: joinedCode
+        }
         const res = await axios.put(ip + `codes/win`, code);
         console.log(res.data)
         return res.data
@@ -90,4 +137,16 @@ const ValidateCode = async (code) => {
           }
           return res
     }
+};
+
+
+
+///focus hook
+const useFocus = () => {
+  const htmlElRef = useRef(null);
+  const setFocus = () => {
+    htmlElRef.current && htmlElRef.current.focus();
+  };
+
+  return [htmlElRef, setFocus];
 };

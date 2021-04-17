@@ -15,6 +15,7 @@ const  App = () => {
           <div >
             {/* <Route exact path="/" component={Main} /> */}
             <Route exact path="/validation/:link" component={Validation} />
+            {/* <Route exact path='/validation/:link/win' component={Win} */}
           </div>
         </Switch>
       </div>
