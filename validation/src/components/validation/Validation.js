@@ -41,18 +41,25 @@ const ValidationForm = ({link}) => {
     }, [focusIndex])
 
 
+
+    useEffect(() => {
+      if(validationCode.length>4){
+          ValidateCode(validationCode).then((res) => {
+            if (res.status) {
+              setWinner({ loaded: true, win: res.value, auth: true });
+            } else {
+              setWinner({ loaded: true, auth: false });
+            }
+          });
+      }
+      
+    }, [validationCode]);
     const onSubmit = (e) => {
       e.preventDefault();
       setValidationCode(Object.values(code).join(""))
       //server validation
 
-      ValidateCode(validationCode).then((res) => {
-        if (res.status) {
-          setWinner({ loaded: true, win: res.value, auth: true });
-        } else {
-          setWinner({ loaded: true, auth: false });
-        }
-      });
+      
     }
 
 
@@ -127,6 +134,7 @@ const ValidateCode = async (joinedCode) => {
         const code ={
           code: joinedCode
         }
+        console.log(code, 'my code')
         const res = await axios.put(ip + `codes/win`, code);
         console.log(res.data)
         return res.data
