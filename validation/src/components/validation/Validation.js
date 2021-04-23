@@ -44,7 +44,7 @@ const ValidationForm = ({link}) => {
 
     useEffect(() => {
       if(validationCode.length>4){
-          ValidateCode(validationCode).then((res) => {
+          ValidateCode({validationCode, link}).then((res) => {
             if (res.status) {
               setWinner({ loaded: true, win: res.value, auth: true });
             } else {
@@ -129,22 +129,22 @@ export default ValidationForm
 
 
 
-const ValidateCode = async (joinedCode) => {
-    try {
-        const code ={
-          code: joinedCode
-        }
-        console.log(code, 'my code')
-        const res = await axios.put(ip + `codes/win`, code);
-        console.log(res.data)
-        return res.data
-    } catch (err) {
-          const res = {
-              msg: err.response.data.err.msg,
-              status: err.response.data.err.status
-          }
-          return res
-    }
+const ValidateCode = async ({ validationCode, link }) => {
+  try {
+    const code = {
+      code: validationCode,
+    };
+    console.log(code, "my code");
+    const res = await axios.put(ip + `codes/win/${link}`, code);
+    console.log(res.data);
+    return res.data;
+  } catch (err) {
+    const res = {
+      msg: err.response.data.err.msg,
+      status: err.response.data.err.status,
+    };
+    return res;
+  }
 };
 
 
