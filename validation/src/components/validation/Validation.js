@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-
+import formStyles from '../../styles/forms.module.sass'
+import styles from '../../styles/validation.module.sass'
 
 import axios from "axios";
 import WinAnimation from "./Animation";
+import WinnerPage from "./Winner";
 
 const ip = process.env.REACT_APP_IP;
 
@@ -79,7 +81,10 @@ const ValidationForm = ({link}) => {
     return (
       <div>
         {!winners.loaded ? (
-          <form onSubmit={onSubmit}>
+          <>
+          <h3 className={styles.title}>ПОСЛЕДНИЙ ШАГ</h3>
+          <p className={styles.subtitle}>ДЛЯ ПОЛУЧЕНИЯ ПРИЗА ОСТАЛОСЬ ВВЕСТИ ВАЛИДАЦИОННЫЙ КОД, НАПИСАННЫЙ НА ИНСТРУКЦИИ</p>
+          <form onSubmit={onSubmit} className={formStyles.validForm}>
             {Object.keys(code).map((key, index) => {
               return (
                 <input
@@ -87,31 +92,31 @@ const ValidationForm = ({link}) => {
                   type="text"
                   name={key}
                   defaultValue={code[key]}
-                  placeholder={"key"}
+                  placeholder={"-"}
                   maxLength={4}
                   onChange={handleCode}
                 />
               );
             })}
 
-            <button type="submit">Отправить</button>
+            <button type="submit">ВВЕСТИ КОД</button>
           </form>
+          </>
         ) : (
           <div>
             {winners.auth ? (
-              <WinAnimation win={winners.win} code={validationCode} />
+              <WinnerPage win={winners.win} code={validationCode} />
             ) : (
-              <div>
-                <p>
-                  <b>Неверный код</b>
+              <div className={styles.incorrect}>
+                  <h3>НЕВЕРНЫЙ КОД</h3>
+                  <p>ПРОВЕРЬТЕ ПРАВИЛЬНОСТЬ НАПИСАНИЯ И ЗАПОЛНИТЕ ФОРМУ ЕЩЕ РАЗ</p>
                   <button
                     onClick={() =>
                       setWinner({ loaded: false, win: null, auth: null })
                     }
                   >
-                    Повторить
+                    ПОВТОРИТЬ
                   </button>
-                </p>
               </div>
             )}
           </div>

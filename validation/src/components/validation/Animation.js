@@ -1,105 +1,23 @@
 import axios from "axios";
-import { useEffect, useState } from "react"
-
+import { useEffect, useState, useRef } from "react"
+import styles from '../../styles/animation.module.sass'
 
 const ip = process.env.REACT_APP_IP;
 
-const WinAnimation = ({win, code}) => {
-    const [animationSettings, setAnimationSettings] = useState(1000)
-    const [loaded, setLoaded] = useState(false)
-  const [registret, setRegistret] = useState(false)
-    const [formData, setFormData] = useState({
-      firstname: "",
-      email: "Email",
-      lastname: "Фамилия",
-      phone: "7965",
-      code: code,
-    });
-    useEffect(() => {
-        //animation
-    },[] )
+const WinAnimation = ({win, closeAnimation}) => {
+  
+  const winSize = win <10000 ? '28vw' : win <100000 ? '22vw' : win <1000000 ?'19vw' : '16vw '
 
-
-
-         //user info handlers
-        const submitUserInfo = (e) => {
-          e.preventDefault();
-            
-          NewUser(formData).then((res) => {
-            if(res.status){
-              setRegistret(res.status);
-              setLoaded(false)
-            }
-         
-          })
-          // console.log(formData, code)
-          //server call
-
-        };
-
-        const userHandler = (e) => {
-            setFormData({...formData, [e.target.name]: e.target.value})
-        };
     return (
-      <div>
-        <h1>Вы выиграли {win} рублей!</h1>
-        <p> Для вывода денег осталось заполнить форму</p>
-        <button onClick={() => setLoaded(true)}> Заполнить</button>
-
-        {loaded && (
-          <form
-            onSubmit={submitUserInfo}
-            style={{ display: "flex", flexDirection: "column" }}
-          >
-            <div>
-              <label>Имя </label>
-              <input
-                type="text"
-                name="firstname"
-                defaultValue={formData.firstname}
-                onChange={userHandler}
-              />
-            </div>
-            <div>
-              <label>Фамилия </label>
-
-              <input
-                type="text"
-                name="lastname"
-                placeholder={formData.lastname}
-                onChange={userHandler}
-              />
-            </div>
-
-            <div>
-              <label>Телефон: </label>
-
-              <input
-                type="phone"
-                name="phone"
-                placeholder={formData.phone}
-                onChange={userHandler}
-              />
-            </div>
-
-            <div>
-              <label>Email </label>
-
-              <input
-                type="email"
-                name="email"
-                placeholder={formData.email}
-                onChange={userHandler}
-              />
-            </div>
-
-            <button>Получить выигрыш</button>
-          </form>
-        )}
-
-        {registret && (
-          <p>Пользователь создан, деньги отправлены</p>
-        )}
+      <div className={styles.animation}>
+        <h1>ВАШ ПРИЗ</h1>
+        <div className={styles.prizeBox}>
+          <div>
+            <h2 style={{fontSize: winSize}}>{win}</h2>
+            <h3>рублей</h3>
+          </div>
+        </div>
+        <button onClick={closeAnimation}>ПРОДЛОЖИТЬ</button>
       </div>
     );
 }

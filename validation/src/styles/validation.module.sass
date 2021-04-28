@@ -1,0 +1,64 @@
+
+@use 'base'
+    
+.container
+    width: 100%
+    height: 100vh
+    display: grid
+
+.title
+    @include base.title-underline
+    font-size: 10vw
+    margin-bottom: 35px
+
+.subtitle
+    @include base.sec-font
+    font-size: 16px
+    margin-bottom: 40px
+    
+
+.notFound
+    @include base.prime-font
+    display: flex
+    flex-direction: column
+    padding-top: 20vh
+    padding-bottom: 150px
+    width: 100%
+    justify-content: space-between
+    align-items: center
+    text-align: center
+    
+    h3
+        font-size: 132px
+        margin: 0
+    p
+        font-size: 36px
+    a
+        @include base.nav-link
+        font-size: 24px
+
+.incorrect
+    position: fixed
+    top: 0
+    left: 13px
+    right: 13px
+    height: 100vh
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    text-align: center
+    background-color: base.$background-color
+    
+
+    h3 
+        @include base.title-underline
+        font-size: 10vw
+        margin-bottom: 15px
+    p
+        @include base.sec-font
+    
+    button 
+        @include base.border-button
+        margin-top: 90px
+        

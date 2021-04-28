@@ -1,0 +1,64 @@
+@font-face 
+  font-family: RussoOne-Regular
+  src: url(./fonts/RussoOne-Regular.ttf)
+  src: url(./fonts/RussoOne-Regular.woff)
+// @import url(https://fonts.googleapis.com/css2?family=Anton&display=swap)
+@font-face 
+  font-family: Anton-Regular
+  src: url(https://fonts.googleapis.com/css2?family=Anton&display=swap)
+  src: url(./fonts/Anton-Regular.ttf) 
+  src: url(./fonts/Anton-Regular.woff)
+
+    
+$primary-color: black
+$background-color: #FADB05
+$primary-font: RussoOne-Regular
+$second-font: Anton-Regular, sans-serif
+
+@mixin prime-font
+    font: 100% $primary-font
+    color: $primary-color
+
+@mixin title-underline
+    @include prime-font
+    border-bottom: 4.6px solid $primary-color
+    text-align: center
+    padding-bottom: 3px
+    width: 100%
+
+@mixin sec-font
+    font: 100% $second-font
+    color: $primary-color
+    
+
+@mixin nav-link
+    font: 100% $primary-font
+    color: $primary-color
+    text-decoration: none
+    cursor: pointer
+
+
+@mixin form-input
+    @include prime-font
+    height: 40px
+    width: 100%
+    background-color: $primary-color
+    color: $background-color
+    border: none
+    font-size: 40px
+    text-align: center
+    &::placeholder
+        color: $background-color
+
+@mixin border-button
+    @include prime-font
+    background-color: transparent
+    border: 0.1em solid $primary-color
+    font-size: 36px
+    width: 100%
+
+@mixin bg-button
+    @include border-button
+    background-color: $primary-color
+    border: none
+    color: $background-color
