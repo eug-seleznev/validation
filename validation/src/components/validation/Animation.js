@@ -98,7 +98,7 @@ const WinAnimation = ({win, closeAnimation}) => {
             <h3>рублей</h3>
           </div>
         </animated.div>
-        <button onClick={() => nextt()}>ПРОДЛОЖИТЬ</button>
+        <button onClick={closeAnimation}>ПРОДЛОЖИТЬ</button>
         </div>
         
       </CSSTransition>
