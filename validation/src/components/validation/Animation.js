@@ -6,6 +6,7 @@ const WinAnimation = ({win, closeAnimation}) => {
 
   const prizes = [20,100,500,1000,2000,5000,4000,10000,100000]
   const [prize, setPrize] = useState(0)
+  const [next, setNext] = useState(false)
 
 
   const setPrizes = () => {
@@ -28,6 +29,7 @@ const WinAnimation = ({win, closeAnimation}) => {
       } else {
         console.log(i,win)
         setPrize(win)
+        setNext(true)
       }
     }
   }
@@ -51,7 +53,9 @@ const WinAnimation = ({win, closeAnimation}) => {
             <h3>рублей</h3>
           </div>
         </div>
-        <button onClick={closeAnimation}>ПРОДЛОЖИТЬ</button>
+        {next?
+        <button onClick={closeAnimation}>ПРОДЛОЖИТЬ</button>:
+        <button>???</button>}
       </div>
     );
 }
