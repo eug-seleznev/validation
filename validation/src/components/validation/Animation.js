@@ -22,7 +22,7 @@ const WinAnimation = ({win, closeAnimation}) => {
         setTimeout(()=>{
           setPrizes()
           res(true) 
-        },150)
+        },120)
   })}
 
   const cycle = async () =>{ 
@@ -44,14 +44,14 @@ const WinAnimation = ({win, closeAnimation}) => {
 
   const { x } = useSpring({
     from: { x: 0 },
-    x: state ? 1 : 0,
-    config: { duration: 1000 },
+    x: state ? 0 : 1,
+    config: { duration: 1500 },
   })
 
-    const nextt = () => {
-      toggle(!state)
-      console.log(state)
-    }
+   const winwinEntered = () => {
+    toggle(!state)
+    window.navigator.vibrate([200])
+   }
 
     return (
       <div className={styles.animation}>
@@ -71,7 +71,7 @@ const WinAnimation = ({win, closeAnimation}) => {
 
       <CSSTransition
         in={next}
-        timeout={300}
+        timeout={500}
         classNames={{
           enter: styles.winwinEnter,
           enterActive: styles.winwinEnterActive,
@@ -79,7 +79,7 @@ const WinAnimation = ({win, closeAnimation}) => {
           exitActive: styles.winwinExitActive,
         }}
         unmountOnExit
-        onEnter={() => toggle(!state)}
+        onEntered={() => winwinEntered()}
         // onExited={() => setNext(true)}
       >
       <div className={styles.winwinModal}>
@@ -87,8 +87,8 @@ const WinAnimation = ({win, closeAnimation}) => {
         <h1>ВАШ ПРИЗ</h1>
         <animated.div className={styles.prizeBox} style={{
           scale: x.to({
-            range: [0, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 1],
-            output: [1, 0.97, 0.9, 1.1, 0.9, 1.1, 1.03, 1],
+            range: [0, 0.10, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 1],
+            output: [1, 0.5, 1.3, 0.7, 1.2, 0.8, 1.1, 0.9, 1],
           }),
         }}>
           <div>

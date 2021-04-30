@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import formStyles from '../../styles/forms.module.sass'
 import styles from '../../styles/validation.module.sass'
-import InputMask from 'react-input-mask';
+
 import axios from "axios";
 import WinAnimation from "./Animation";
 import WinnerPage from "./Winner";
@@ -17,7 +17,12 @@ const ValidationForm = ({link}) => {
   const ref = useRef()
   const [focusIndex, setFocusIndex] = useState(1)
   const [validationCode, setValidationCode] = useState('')
-    const [code, setCode] = useState('');
+    const [code, setCode] = useState({
+      code1: "",
+      code2: "",
+      code3: "",
+      code4: "",
+    });
     const [winners, setWinner] = useState({
         loaded: false,
         win: null,
@@ -51,18 +56,23 @@ const ValidationForm = ({link}) => {
       }
       
     }, [validationCode]);
-
     const onSubmit = (e) => {
       e.preventDefault();
-      const validation = code.split('-').join('')
-      setValidationCode(validation)
+      setValidationCode(Object.values(code).join(""))
       //server validation
+
+      
     }
 
 
     const handleCode = (e) => {
-  
-    setCode(e.target.value);
+    if(e.target.value.length==4 && focusIndex<4){
+      setFocusIndex(focusIndex+1)
+      console.log(focusIndex)
+      
+    }
+    setCode({ ...code, [e.target.name]: e.target.value });
+    console.log(code)
     }
 
 
@@ -75,24 +85,21 @@ const ValidationForm = ({link}) => {
           <h3 className={styles.title}>ПОСЛЕДНИЙ ШАГ</h3>
           <p className={styles.subtitle}>ДЛЯ ПОЛУЧЕНИЯ ПРИЗА ОСТАЛОСЬ ВВЕСТИ ВАЛИДАЦИОННЫЙ КОД, НАПИСАННЫЙ НА ИНСТРУКЦИИ</p>
           <form onSubmit={onSubmit} className={formStyles.validForm}>
-          <InputMask mask="****-****-****-****" alwaysShowMask={false} value={code} onChange={handleCode}>
-            {(inputProps) => 
-            <input {...inputProps} 
-              // type="tel" 
-              disableUnderline 
-                  ref={ref}
+            {Object.keys(code).map((key, index) => {
+              return (
+                <input
+                  ref={0 === index ? inpuRef : ref}
                   type="text"
-                  name='code'
+                  name={key}
+                  defaultValue={code[key]}
                   placeholder={"-"}
-                  autoCapitalize='none'
-                  autoComplete='none'
-              />}
-          </InputMask>
-                {/* <input
-                
-                  
-                /> */}
-              <button type="submit">ВВЕСТИ КОД</button>
+                  maxLength={4}
+                  onChange={handleCode}
+                />
+              );
+            })}
+
+            <button type="submit">ВВЕСТИ КОД</button>
           </form>
           </>
         ) : (
