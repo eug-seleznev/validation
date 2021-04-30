@@ -14,7 +14,6 @@ const CardPage = ({win,code}) => {
     const [card, setCard] = useState('')
     const [phone, setPhone] = useState('')
 
-useEffect(()=>{console.log('eeeeeerr',error)},[error])
 
 
     const sendOnCard = () => {
@@ -23,7 +22,6 @@ useEffect(()=>{console.log('eeeeeerr',error)},[error])
             if(res){
                 setFinish(true)
             } else {
-              console.log('wowo')
               setError(true)
             }
           })
@@ -39,7 +37,6 @@ useEffect(()=>{console.log('eeeeeerr',error)},[error])
           })
     }
     const closeTab = () => {
-      console.log('close')
       window.open("about:blank", "_self");
       window.close();
     }
@@ -138,14 +135,10 @@ const EnterCard = async (code,card) => {
         code: code,
         card: card,
     }
-    console.log('1',formData)
     const res = await axios.put(ip + `pay/card`, formData);
-    console.log('2',res)
-    
     return true;
+
   } catch (err) {
-    console.log('err',err.response)
-        // alert('Неизвестная ошибка, попробуйте еще раз')
     return false;
   }
 };
@@ -156,14 +149,10 @@ const EnterPhone = async (code,phone) => {
           code: code,
           phone: phone,
       }
-    console.log('1',formData)
-    const res = await axios.put(ip + `pay/phone`, formData);
-      console.log('2',res)
-      
+      const res = await axios.put(ip + `pay/phone`, formData);
       return true;
+
     } catch (err) {
-      console.log('err',err.response)
-        // alert('Неизвестная ошибка, попробуйте еще раз')
       return false;
     }
   };

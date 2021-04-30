@@ -32,7 +32,7 @@ const WinnerPage = ({win, code}) => {
          //user info handlers
     const submitUserInfo = (e) => {
           e.preventDefault();
-          const phone = formData.phone.replace(/\D/g,'').substring(1)
+          const phone = formData.phone.replace(/\D/g,'')
           const newData = {...formData, phone: phone}
           NewUser(newData).then((res) => {
             if(res.status){
@@ -128,18 +128,14 @@ export default WinnerPage
 //reg new user
 const NewUser = async (formData) => {
   try {
-    console.log('1')
 
-    const fullPhone = '7'+formData.phone
-    const newFormData = {...formData, phone: fullPhone}
-    console.log('2',newFormData)
-    const res = await axios.put(ip + `codes/claim`, newFormData);
-    console.log('3',res);
+    const res = await axios.put(ip + `codes/claim`, formData);
     const data = {
       msg: res.data,
       status: true
     }
     return data;
+    
   } catch (err) {
     const res = {
       msg: err.response.data.err,

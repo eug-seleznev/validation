@@ -19,11 +19,9 @@ const Validation = ({match}) => {
     useEffect(() => 
     {
         ValidateLink(link).then(res => {
-          console.log(res)
           if(res.status == 200){
             setLoaded('start')
             if(res.data.status==302){
-              console.log('res.data',res.data.code)
               setLoaded('validated')
               setCode(res.data.code)
               setWin(res.data.value)

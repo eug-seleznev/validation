@@ -28,7 +28,6 @@ const ValidationForm = ({link}) => {
 
     useEffect(() => {
       setInputFocus()
-      console.log(focusIndex)
       const nextSibling = document.querySelector(
         `input[name=code${focusIndex}]`
       );
@@ -126,10 +125,9 @@ const ValidateCode = async ({ validationCode, link }) => {
     const code = {
       code: validationCode,
     };
-    console.log(code, "my code");
     const res = await axios.put(ip + `codes/win/${link}`, code);
-    console.log(res.data);
     return res.data;
+    
   } catch (err) {
     const res = {
       msg: err.response.data.err.msg,

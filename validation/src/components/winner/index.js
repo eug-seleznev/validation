@@ -119,7 +119,6 @@ const NewUser = async (formData) => {
   try {
     
     const res = await axios.put(ip + `codes/claim`, formData);
-    console.log(res.data);
     const data = {
       msg: res.data,
       status: true

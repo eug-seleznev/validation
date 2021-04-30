@@ -30,7 +30,6 @@ const WinAnimation = ({win, closeAnimation}) => {
       if(i<39){
         await timeout()
       } else {
-        console.log(i,win)
         setPrize(win)
         setNext(true)
       }
