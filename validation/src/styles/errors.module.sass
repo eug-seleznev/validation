@@ -4,13 +4,14 @@
 .incorrect
     position: fixed
     top: 0
+    width: auto
     left: 13px
     right: 13px
     padding-top: 20vh
     text-align: center
     background-color: base.$background-color
     
-    h3 
+    .title 
         @include base.title-underline
         font-size: 10vw
         margin-bottom: 15px
@@ -19,5 +20,12 @@
         margin-bottom: 50px
     
     button 
-        @include base.border-button
+        @include base.border-button 
+
+
+@media screen and ( min-width: 500px  )
+    .incorrect
+        left: auto
+        right: auto
+        width: 500px
         

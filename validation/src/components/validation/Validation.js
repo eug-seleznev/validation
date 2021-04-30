@@ -6,7 +6,7 @@ import axios from "axios";
 import WinAnimation from "./Animation";
 import WinnerPage from "./Winner";
 import ErrorScreen from "../errorScreen/error";
-
+import Textfit from 'react-textfit';
 const ip = process.env.REACT_APP_IP;
 
 
@@ -72,7 +72,9 @@ const ValidationForm = ({link}) => {
       <div>
         {!winners.loaded ? (
           <>
-          <h3 className={styles.title}>ПОСЛЕДНИЙ ШАГ</h3>
+          <Textfit mode="single" className={styles.title}>
+              ПОСЛЕДНИЙ ШАГ
+          </Textfit>
           <p className={styles.subtitle}>ДЛЯ ПОЛУЧЕНИЯ ПРИЗА ОСТАЛОСЬ ВВЕСТИ ВАЛИДАЦИОННЫЙ КОД, НАПИСАННЫЙ НА ИНСТРУКЦИИ</p>
           <form onSubmit={onSubmit} className={formStyles.validForm}>
           <InputMask mask="****-****-****-****" alwaysShowMask={false} value={code} onChange={handleCode}>

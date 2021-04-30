@@ -1,15 +1,12 @@
 @use 'base'
 
 .winnerPage
+   
     form
         text-align: center
         align-items: center
 
-        h1
-            @include base.title-underline
-            font-size: 38px
-            width: max-content
-            margin-bottom: 15px
+        
         p   
             @include base.sec-font
             margin-bottom: 45px
@@ -22,6 +19,12 @@
             font-size: 36px
             margin-top: 20px
             margin-bottom: 20px
+
+.title
+    @include base.title-underline
+    width: 100%
+    margin-bottom: 15px
+
 .phoneDiv        
     display: flex
     flex-direction: row
@@ -46,11 +49,7 @@
     flex-grow: 3
     word-break: break-word
 
-    h1
-        @include base.title-underline
-        font-size: 38px
-        width: max-content
-        margin-bottom: 15px
+    
     p   
         @include base.sec-font
         margin-bottom: 30px
@@ -80,8 +79,6 @@
     flex-direction: column
     align-items: center
     text-align: center
-    // justify-content: space-between
-    // height: 70vh
 
     h1
         @include base.title-underline
@@ -101,3 +98,7 @@
         font-size: 36px
         margin-top: 20px
         margin-bottom: 20px
+
+
+       
+    

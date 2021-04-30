@@ -4,6 +4,7 @@ import WinAnimation from "./Animation";
 import styles from '../../styles/winner.module.sass'
 import InputMask from 'react-input-mask';
 import ErrorScreen from "../errorScreen/error";
+import Textfit from 'react-textfit'
 
 const ip = process.env.REACT_APP_IP;
 
@@ -53,7 +54,9 @@ const CardPage = ({win,code}) => {
           /> :
         
         !finish? <>
-          <h1>ГОТОВО</h1>
+          <Textfit mode="single" className={styles.title} max={50}>
+            МОИ ДАННЫЕ
+          </Textfit>
           <p>Укажите номер телефона, на который нужно отправить выигрыш</p>
           <div className={styles.phoneDiv}>
             <InputMask mask="+7 (999)-999-99-99" alwaysShowMask={false} value={phone} onChange={(e)=>setPhone(e.target.value)}>
@@ -72,7 +75,9 @@ const CardPage = ({win,code}) => {
           <button onClick={sendOnPhone}>ОТПРАВИТЬ</button>
         </> :
         <>
-          <h1>ГОТОВО</h1>
+          <Textfit mode="single" className={styles.title} max={50}>
+            МОИ ДАННЫЕ
+          </Textfit>
           <p>В ближайшее время деньги будут отправлены на указанный телефон, спасибо за участие!</p>
           <button onClick={closeTab}>ЗАКРЫТЬ</button>
         </>)}
@@ -86,7 +91,9 @@ const CardPage = ({win,code}) => {
           /> :
         
         !finish? <>
-          <h1>ГОТОВО</h1>
+          <Textfit mode="single" className={styles.title} max={50}>
+            МОИ ДАННЫЕ
+          </Textfit>
           <p>Укажите номер в поле карты, на которую нужно отправить выигрыш</p>
             <InputMask mask="9999 9999 9999 9999" alwaysShowMask={false} value={card} onChange={(e)=>setCard(e.target.value)}>
               {(inputProps) => 
@@ -104,13 +111,17 @@ const CardPage = ({win,code}) => {
           <button onClick={sendOnCard}>ОТПРАВИТЬ</button>
         </>:
         <>
-          <h1>ГОТОВО</h1>
+          <Textfit mode="single" className={styles.title} max={50}>
+            МОИ ДАННЫЕ
+          </Textfit>
           <p>В ближайшее время деньги будут отправлены на указанную карту, спасибо за участие!</p>
           <button onClick={closeTab}>ЗАКРЫТЬ</button>
         </>)}
 
         {win>4000 && <>
-          <h1>ГОТОВО</h1>
+          <Textfit mode="single" className={styles.title} max={50}>
+            МОИ ДАННЫЕ
+          </Textfit>
           <p>Мы свяжемся с Вами в будние дни с 10.00 до 19.00 по Московскому времени и сообщим как получить Ваш приз</p>
           <button onClick={closeTab}>ЗАКРЫТЬ</button>
         </>}

@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from "react"
 import styles from '../../styles/animation.module.sass'
 import { CSSTransition } from 'react-transition-group';
 import { useSpring, animated } from '@react-spring/web'
+import Textfit from 'react-textfit'
+
 
 const WinAnimation = ({win, closeAnimation}) => {
   
@@ -56,10 +58,10 @@ const WinAnimation = ({win, closeAnimation}) => {
       <div className={styles.animation}>
         <h1>ВАШ ПРИЗ</h1>
         <div className={styles.prizeBox}>
-          <div>
-            <h2 style={{
-              fontSize: prize <10000 ? '28vw' : prize <100000 ? '22vw' : prize <1000000 ?'19vw' : '16vw '
-              }}>{prize}</h2>
+          <div className={styles.innerBox}>
+            <Textfit mode="single" className={styles.prize} max={120} >
+              {prize}
+            </Textfit>
             <h3>рублей</h3>
           </div>
         </div>
@@ -90,10 +92,10 @@ const WinAnimation = ({win, closeAnimation}) => {
             output: [1, 0.5, 1.3, 0.7, 1.2, 0.8, 1.1, 0.9, 1],
           }),
         }}>
-          <div>
-            <h2 style={{
-              fontSize: prize <10000 ? '28vw' : prize <100000 ? '22vw' : prize <1000000 ?'19vw' : '16vw '
-              }}>{prize}</h2>
+          <div className={styles.innerBox}>
+            <Textfit mode="single" className={styles.prize} max={120}>
+              {prize}
+            </Textfit>
             <h3>рублей</h3>
           </div>
         </animated.div>
