@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react"
 import WinAnimation from "./Animation";
 import styles from '../../styles/winner.module.sass'
 import CardPage from "./card";
+import InputMask from 'react-input-mask';
 
 const ip = process.env.REACT_APP_IP;
 
@@ -12,7 +13,6 @@ const WinnerPage = ({win, code}) => {
     const [formOpen, setFormOpen] = useState(true)
     const [animationModal, setAnimModal] = useState(true)
     const [registret, setRegistret] = useState(false)
-    const [phoneCode, setPhoneCode] = useState(false)
     const [formData, setFormData] = useState({
       firstname: "",
       email: "",
@@ -32,13 +32,12 @@ const WinnerPage = ({win, code}) => {
          //user info handlers
     const submitUserInfo = (e) => {
           e.preventDefault();
-            console.log('hi 1')
-          NewUser(formData).then((res) => {
-
+          const phone = formData.phone.replace(/\D/g,'').substring(1)
+          const newData = {...formData, phone: phone}
+          NewUser(newData).then((res) => {
             if(res.status){
               setRegistret(res.status);
             }
-         
           })
         };
 
@@ -79,20 +78,19 @@ const WinnerPage = ({win, code}) => {
                 defaultValue={formData.lastname}
                 onChange={userHandler}
               />
-              <div className={styles.phoneDiv}>
 
-                    {phoneCode && <span>+7</span>}
-                    <input
-                        className={styles.phoneInput}
-                        // type="phone"
-                        name="phone"
-                        placeholder='Телефон'
-                        value={formData.phone}
-                        onFocus={()=>setPhoneCode(true)}
-                        onChange={userHandler}
-                        maxLength={10}
-                        />
-              </div>
+            <InputMask mask="+7 (999)-999-99-99" alwaysShowMask={false} value={formData.phone} onChange={userHandler}>
+              {(inputProps) => 
+              <input {...inputProps} 
+                disableUnderline 
+                type='text'
+                    inputmode="numeric"
+                    name="phone"
+                    placeholder='Телефон'
+                    autoCapitalize='none'
+                    autoComplete='none'
+                />}
+            </InputMask>
               
             <button>СОХРАНИТЬ</button>
             <p>Форма доступна в течение недели</p>
@@ -106,7 +104,7 @@ const WinnerPage = ({win, code}) => {
               <h2>E-mail: <p>{formData.email}</p></h2>
               <h2>Имя: <p>{formData.firstname}</p></h2>
               <h2>Фамилия: <p>{formData.lastname}</p></h2>
-              <h2>Телефон: <p>+7{formData.phone}</p></h2>
+              <h2>Телефон: <p>{formData.phone}</p></h2>
               <button onClick={submitUserInfo} className={styles.submit}>ОТПРАВИТЬ</button>
               <button onClick={()=>setFormOpen(true)} className={styles.change}>ИЗМЕНИТЬ</button>
             </div>}

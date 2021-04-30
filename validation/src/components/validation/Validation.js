@@ -5,6 +5,7 @@ import InputMask from 'react-input-mask';
 import axios from "axios";
 import WinAnimation from "./Animation";
 import WinnerPage from "./Winner";
+import ErrorScreen from "../errorScreen/error";
 
 const ip = process.env.REACT_APP_IP;
 
@@ -96,23 +97,16 @@ const ValidationForm = ({link}) => {
           </form>
           </>
         ) : (
-          <div>
-            {winners.auth ? (
+          winners.auth ? (
               <WinnerPage win={winners.win} code={validationCode} />
             ) : (
-              <div className={styles.incorrect}>
-                  <h3>НЕВЕРНЫЙ КОД</h3>
-                  <p>ПРОВЕРЬТЕ ПРАВИЛЬНОСТЬ НАПИСАНИЯ И ЗАПОЛНИТЕ ФОРМУ ЕЩЕ РАЗ</p>
-                  <button
-                    onClick={() =>
-                      setWinner({ loaded: false, win: null, auth: null })
-                    }
-                  >
-                    ПОВТОРИТЬ
-                  </button>
-              </div>
-            )}
-          </div>
+              <ErrorScreen
+                title='НЕВЕРНЫЙ КОД'
+                subtitle='ПРОВЕРЬТЕ ПРАВИЛЬНОСТЬ НАПИСАНИЯ И ЗАПОЛНИТЕ ФОРМУ ЕЩЕ РАЗ'
+                button='ПОВТОРИТЬ'
+                onClick={() => setWinner({ loaded: false, win: null, auth: null })}
+              />
+            )
         )}
       </div>
     );
