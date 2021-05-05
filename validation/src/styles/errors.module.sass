@@ -23,6 +23,27 @@
         @include base.border-button 
 
 
+.notFound
+    @include base.prime-font
+    display: flex
+    flex-direction: column
+    padding-top: 20vh
+    padding-bottom: 150px
+    width: 100%
+    justify-content: space-between
+    align-items: center
+    text-align: center
+    
+    h3
+        font-size: 132px
+        margin: 0
+    p
+        font-size: 36px
+    a
+        @include base.nav-link
+        font-size: 24px
+
+
 @media screen and ( min-width: 500px  )
     .incorrect
         left: auto
