@@ -1,9 +1,11 @@
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, Suspense } from "react"
 import styles from '../../styles/animation.module.sass'
 import { CSSTransition } from 'react-transition-group';
 import { useSpring, animated } from '@react-spring/web'
 import Textfit from 'react-textfit'
-
+import {Glitch, EffectComposer,} from '@react-three/postprocessing'
+import {Canvas, useFrame} from '@react-three/fiber'
+import NewCanvas from "./canvas";
 
 const WinAnimation = ({win, closeAnimation}) => {
   
@@ -13,6 +15,7 @@ const WinAnimation = ({win, closeAnimation}) => {
   const [next, setNext] = useState(false)
   const [state, toggle] = useState(true)
 
+  
 
   const setPrizes = () => {
     const random = Math.floor(Math.random() * (prizes.length-1))
@@ -57,11 +60,15 @@ const WinAnimation = ({win, closeAnimation}) => {
     return (
       <div className={styles.animation}>
         <h1>ВАШ ПРИЗ</h1>
+            
         <div className={styles.prizeBox}>
           <div className={styles.innerBox}>
-            <Textfit mode="single" className={styles.prize} max={120} >
+            <div className={styles.canvas}>
+              <NewCanvas win={prize} />
+            </div>
+            {/* <Textfit mode="single" className={styles.prize} max={120} >
               {prize}
-            </Textfit>
+            </Textfit> */}
             <h3>рублей</h3>
           </div>
         </div>
