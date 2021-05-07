@@ -33,7 +33,7 @@ const Validation = ({match}) => {
             
           } else if (res.status == 400){
             setLoaded('payed')
-          } else if (res.status == 402) {
+          } else if (res.status == 404) {
             setLoaded('404')
           } 
         })
