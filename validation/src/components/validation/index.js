@@ -12,7 +12,7 @@ const ip = process.env.REACT_APP_IP;
 
 const Validation = ({match}) => {
     const {link} = match.params;
-    const [loaded, setLoaded] = useState(false)
+    const [loaded, setLoaded] = useState('')
     const [code, setCode] = useState('')
     const [win, setWin] = useState('')
     
@@ -34,7 +34,7 @@ const Validation = ({match}) => {
           } else if (res.status == 400){
             setLoaded('payed')
           } else if (res.status == 402) {
-            setLoaded(false)
+            setLoaded('404')
           } 
         })
     },
@@ -62,6 +62,7 @@ const Validation = ({match}) => {
             <NavLink to='/site'>ПЕРЕЙТИ НА САЙТ</NavLink>
           </div>
         ) :
+        loaded=='404' &&
         (
           <div className={styles.notFound}>
             <div>

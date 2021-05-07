@@ -13,7 +13,7 @@ const WinAnimation = ({win, closeAnimation}) => {
   const prizes = [20,100,500,1000,2000,5000,4000,10000,100000]
   const [prize, setPrize] = useState(0)
   const [next, setNext] = useState(false)
-  const [state, toggle] = useState(true)
+  const [state, toggle] = useState(false)
 
   
 
@@ -49,13 +49,25 @@ const WinAnimation = ({win, closeAnimation}) => {
   const { x } = useSpring({
     from: { x: 0 },
     x: state ? 0 : 1,
-    config: { duration: 1500 },
+    config: { duration: 500 },
   })
 
+  const vibration = () => {
+    navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+    console.log(navigator)
+    if (navigator.vibrate) {
+      // vibration API supported
+        navigator.vibrate(1000);
+    }
+  }
    const winwinEntered = () => {
-    toggle(!state)
-    window.navigator.vibrate([200])
+    toggle(true)
+    vibration()
    }
+   useEffect(()=>{
+   vibration()
+
+   },[state])
 
     return (
       <div className={styles.animation}>
@@ -64,7 +76,7 @@ const WinAnimation = ({win, closeAnimation}) => {
         <div className={styles.prizeBox}>
           <div className={styles.innerBox}>
             <div className={styles.canvas}>
-              <NewCanvas win={prize} />
+              <NewCanvas win={prize} delay={0.12} />
             </div>
             {/* <Textfit mode="single" className={styles.prize} max={120} >
               {prize}
@@ -91,25 +103,30 @@ const WinAnimation = ({win, closeAnimation}) => {
         // onExited={() => setNext(true)}
       >
       <div className={styles.winwinModal}>
-        
-        <h1>ВАШ ПРИЗ</h1>
-        <animated.div className={styles.prizeBox} style={{
-          scale: x.to({
-            range: [0, 0.10, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 1],
-            output: [1, 0.5, 1.3, 0.7, 1.2, 0.8, 1.1, 0.9, 1],
-          }),
-        }}>
-          <div className={styles.innerBox}>
-            <Textfit mode="single" className={styles.prize} max={120}>
-              {prize}
-            </Textfit>
-            <h3>рублей</h3>
+        <animated.div style={{
+            rotateZ: x.to({
+              range: [0, 0.10, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 1],
+              output: [0, -5 , 5, -5, 5, -5, 5, -5, 0],
+            }),
+            
+          }}>
+          
+          <h1>ВАШ ПРИЗ</h1>
+          <div className={styles.winwinPrizeBox} >
+            <div className={styles.winwinInnerBox}>
+              <Textfit mode="single" className={styles.prize} max={120} >
+                {prize}
+              </Textfit>
+              <h2 className={styles.winwinRub}>рублей</h2>
+            </div>
           </div>
-        </animated.div>
-        <button onClick={closeAnimation}>ПРОДЛОЖИТЬ</button>
+          <button onClick={closeAnimation}>ПРОДЛОЖИТЬ</button>
+          </animated.div>
         </div>
-        
       </CSSTransition>
+
+
+
       </div>
     );
 }

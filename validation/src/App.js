@@ -16,7 +16,7 @@ const  App = () => {
       <div className={styles.appContainer}>
           <Switch>
               <Route exact path="/validation/:link" component={Validation} />
-              <Route exact path="*" component={Validation} />
+              <Route exact path="*" component={NotFound} />
 
           </Switch>
           <Layout />

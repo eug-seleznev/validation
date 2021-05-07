@@ -2,34 +2,43 @@
 $box-size: 85vw
 
 .animation
+    position: fixed
     top: 0
+    left: 0
+    right: 0
+    bottom: 0
     padding-top: base.$padding-to-title
     display: flex
     flex-direction: column
     align-items: center
-    background-color: base.$background-color
+    background-color: base.$primary-color
     padding-left: 13px
     padding-right: 13px
 
     h1
         @include base.prime-font
         font-size: 55px
+        color: base.$background-color
 
     button
         @include base.bg-button
         width: $box-size
         padding-bottom: 20px
         padding-top: 20px
+        color: base.$background-color
+
 .prizeBox
     width: $box-size
     height: $box-size
    
-    border: 4px solid black
+    border: 4px solid base.$background-color
     padding: 7px
     box-sizing: border-box
+  
+
 
     .innerBox
-      border: 1px solid black
+      border: 1px solid base.$background-color
       text-align: center
       height: 100%
       width: 100%
@@ -49,6 +58,7 @@ $box-size: 85vw
       h3
           @include base.prime-font
           font-size: 60px
+          color: base.$background-color
           
 
 
@@ -56,7 +66,7 @@ $box-size: 85vw
 .winwinEnter 
 
   opacity: 0
-  transform: scale(2)
+  transform: scale(10)
 
 .winwinEnterActive 
   opacity: 1
@@ -75,10 +85,26 @@ $box-size: 85vw
   @extend .animation
   position: absolute
   top: 0
-  width: 500px
+  left:0
+  right: 0
+  background-color: base.$background-color
+  
+  h1
+    text-align: center
+    color: base.$primary-color
   button
     margin-bottom: 100px
-  
+
+.winwinPrizeBox
+  @extend .prizeBox
+  border-color: base.$primary-color
+  .winwinInnerBox
+    @extend .innerBox
+    border-color: base.$primary-color
+  .winwinRub
+    @include base.prime-font
+    font-size: 60px
+    color: base.$primary-color
 
 
 
@@ -89,13 +115,33 @@ $box-size: 85vw
 
 @media screen and ( min-width: 500px )
   .animation
+    width: 500px
+    left: auto
+    right: auto
+    transform: translateX(-13px)
     button
         width: 100%
         
   .prizeBox
     width: 100%
-    height: 100%
+    height: auto
     .innerBox
-      padding-top: 50px
-      padding-bottom: 50px
+      height: 100%
+      box-sizing: border-box
+      padding-top: 70px
+      padding-bottom: 70px
     
+  .winwinModal
+    div
+      width: 100%
+  .winwinPrizeBox
+    @extend .prizeBox
+    border-color: base.$primary-color
+    width: 100%
+    .winwinInnerBox
+      @extend .innerBox
+      border-color: base.$primary-color
+    .winwinRub
+      @include base.prime-font
+      font-size: 60px
+      color: base.$primary-color

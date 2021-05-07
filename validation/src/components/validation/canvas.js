@@ -17,7 +17,7 @@ import {preloadFont} from 'troika-three-text'
 
 
 
-const NewCanvas = ({win}) => {
+const NewCanvas = ({win, delay}) => {
   
 
     const winSize =win <1000 ? 6 : win <10000 ? 5 : win <100000 ? 4 : win <1000000 ? 3 : 2
@@ -28,16 +28,17 @@ const NewCanvas = ({win}) => {
         <Suspense fallback={null}>
             <EffectComposer>
             <Text
-  color="black" // default
+  color="#FADB05" // default
   anchorX="center" // default
   anchorY="middle" // default
   fontSize={winSize}
   font={`/RussoOne-Regular.woff`}
+  
 >
                     {win}
                 </Text>
                 <Glitch 
-                    delay={[0.12,0.12]} // min and max glitch delay
+                    delay={[delay,delay]} // min and max glitch delay
                     duration={[0.01,0.02]}
                     columns={[0.05]}
                     mode={GlitchMode.SPORADIC}
