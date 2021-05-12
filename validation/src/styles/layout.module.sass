@@ -1,14 +1,11 @@
 @use 'base'
 
 .layout
-    position: absolute
-    bottom: 70px
-    left: 20px
-    right: 20px
+    // position: absolute
+ 
     display: flex
     justify-content: space-between
     z-index: 9999
-    background-color: base.$background-color
 
     address
         @include base.prime-font
@@ -18,9 +15,5 @@
         font-size: 16px
         width: max-content
  
-@media screen and ( min-width: 500px )
-    .layout
-        width: 500px
-        left: auto
-        right: auto
+
     

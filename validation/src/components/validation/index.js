@@ -57,7 +57,7 @@ const Validation = ({match}) => {
         {loaded=='start' ? (
           <ValidationForm link={link} />
         ) :
-        loaded=='asd' ? (
+        loaded=='validated' ? (
           <WinnerPage  win={win} code={code}  />
         ) :
         loaded=='payment' ? (
@@ -82,7 +82,7 @@ const Validation = ({match}) => {
             <NavLink to='/site'>ПЕРЕЙТИ НА САЙТ</NavLink>
           </div>
         ) :
-        loaded=='validated' && (
+        loaded=='dateInvalid' && (
           <div className={styles.dateInvalid}>
             <div>
               <h3>400</h3>
