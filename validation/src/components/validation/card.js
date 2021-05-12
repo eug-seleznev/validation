@@ -5,10 +5,11 @@ import styles from '../../styles/winner.module.sass'
 import InputMask from 'react-input-mask';
 import ErrorScreen from "../errorScreen/error";
 import Textfit from 'react-textfit'
+import NdflWinner from "../finishScreens/ndflWinner";
 
 const ip = process.env.REACT_APP_IP;
 
-const CardPage = ({win,code}) => {
+const CardPage = ({win,code, totalSum, counter}) => {
 
     const [finish, setFinish] = useState(false)
     const [error, setError] = useState(false)
@@ -52,6 +53,7 @@ const CardPage = ({win,code}) => {
               button='ВЕРНУТЬСЯ'
               onClick={()=>setError(false)}
           /> :
+        totalSum? <NdflWinner closeTab={closeTab} counter={counter}  /> :
         
         !finish? <>
           <Textfit mode="single" className={styles.title} max={50}>
@@ -89,7 +91,8 @@ const CardPage = ({win,code}) => {
               button='ВЕРНУТЬСЯ'
               onClick={()=>setError(false)}
           /> :
-        
+          totalSum? <NdflWinner closeTab={closeTab} counter={counter}  /> :
+
         !finish? <>
           <Textfit mode="single" className={styles.title} max={50}>
             МОИ ДАННЫЕ
@@ -118,13 +121,7 @@ const CardPage = ({win,code}) => {
           <button onClick={closeTab}>ЗАКРЫТЬ</button>
         </>)}
 
-        {win>4000 && <>
-          <Textfit mode="single" className={styles.title} max={50}>
-            МОИ ДАННЫЕ
-          </Textfit>
-          <p>Мы свяжемся с Вами в будние дни с 10.00 до 19.00 по Московскому времени и сообщим как получить Ваш приз</p>
-          <button onClick={closeTab}>ЗАКРЫТЬ</button>
-        </>}
+        {win>4000 && <NdflWinner closeTab={closeTab} counter={counter} />}
       </div>
     );
 }
@@ -150,6 +147,7 @@ const EnterCard = async (code,card) => {
     return true;
 
   } catch (err) {
+    alert(err.response.data.err)
     return false;
   }
 };
@@ -164,6 +162,8 @@ const EnterPhone = async (code,phone) => {
       return true;
 
     } catch (err) {
+    alert(err.response.data.err)
+
       return false;
     }
   };

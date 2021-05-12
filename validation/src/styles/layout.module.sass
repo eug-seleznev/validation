@@ -1,13 +1,14 @@
 @use 'base'
 
 .layout
-    position: fixed
-    bottom: 10px
+    position: absolute
+    bottom: 70px
     left: 20px
     right: 20px
     display: flex
     justify-content: space-between
     z-index: 9999
+    background-color: base.$background-color
 
     address
         @include base.prime-font

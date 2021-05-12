@@ -13,6 +13,8 @@ const WinnerPage = ({win, code}) => {
     const [formOpen, setFormOpen] = useState(true)
     const [animationModal, setAnimModal] = useState(true)
     const [registret, setRegistret] = useState(false)
+    const [totalSumm, setTotalSumm] = useState(false)
+    const [pazzleCounter, setPazzleCounter] = useState(0)
     const [formData, setFormData] = useState({
       firstname: "",
       email: "",
@@ -27,7 +29,11 @@ const WinnerPage = ({win, code}) => {
 
     const checkInputs = (e) => {
         e.preventDefault()
-        setFormOpen(false)
+        if(formData.phone.split('').some(el=>el==='_')){
+          alert('Заполните поле телефона правильно')
+        } else {
+          setFormOpen(false)
+        }
     }
          //user info handlers
     const submitUserInfo = (e) => {
@@ -36,6 +42,8 @@ const WinnerPage = ({win, code}) => {
           const newData = {...formData, phone: phone}
           NewUser(newData).then((res) => {
             if(res.status){
+              setTotalSumm(res.msg.totalSum)
+              setPazzleCounter(res.msg.count)
               setRegistret(res.status);
             }
           })
@@ -64,6 +72,7 @@ const WinnerPage = ({win, code}) => {
                 </Textfit>
                 <p>Заполните форму для получение выигрыша</p>
                 <input
+                  required
                   type="email"
                   name="email"
                   placeholder='e-mail'
@@ -71,6 +80,7 @@ const WinnerPage = ({win, code}) => {
                   onChange={userHandler}
                 />
                 <input
+                  required
                   type="text"
                   name="firstname"
                   placeholder='Имя'
@@ -78,6 +88,7 @@ const WinnerPage = ({win, code}) => {
                   onChange={userHandler}
                 />
                 <input
+                  required
                   type="text"
                   name="lastname"
                   placeholder='Фамилия'
@@ -85,9 +96,10 @@ const WinnerPage = ({win, code}) => {
                   onChange={userHandler}
                 />
 
-              <InputMask mask="+7 (999)-999-99-99" alwaysShowMask={false} value={formData.phone} onChange={userHandler}>
+              <InputMask mask="+7 (999)-999-99-99" required alwaysShowMask={false} value={formData.phone} onChange={userHandler}>
                 {(inputProps) => 
                 <input {...inputProps} 
+                required
                   disableUnderline 
                   type='text'
                       inputmode="numeric"
@@ -99,10 +111,11 @@ const WinnerPage = ({win, code}) => {
               </InputMask>
                 
               <button>СОХРАНИТЬ</button>
-              <p>Форма доступна в течение недели</p>
+              <p>После активации кода из инструкции есть только одна неделя, чтобы заполнить данные и получить приз</p>
+              <p>Поспешите!</p>
             </form>
         : registret?
-            <CardPage win={win} code={code} />
+            <CardPage win={win} code={code} totalSum={totalSumm} counter={pazzleCounter} />
         :
             <div className={styles.checkInputs}>
               <Textfit mode="single" className={styles.title} max={50}>
@@ -149,6 +162,7 @@ const NewUser = async (formData) => {
       msg: err.response.data.err,
       status: false,
     };
+    alert(res.msg)
     return res;
   }
 };

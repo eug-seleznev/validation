@@ -34,6 +34,7 @@
         font-size: 36px
     a
         @include base.nav-link
+        margin-top: 50px
         font-size: 24px
 
 .incorrect
@@ -57,3 +58,30 @@
         @include base.border-button
         margin-top: 90px
         
+
+        
+.dateInvalid
+    @include base.prime-font
+    display: flex
+    flex-direction: column
+    padding-top: 20vh
+    padding-bottom: 150px
+    width: 100%
+    justify-content: space-between
+    align-items: center
+    text-align: center
+    
+    h3
+        font-size: 132px
+        margin: 0
+    p
+        font-size: 16px
+    
+    a
+        @include base.nav-link
+        margin-top: 50px
+        font-size: 24px
+    .inTextA
+        color: black
+        font-size: 18px
+        text-decoration: underline

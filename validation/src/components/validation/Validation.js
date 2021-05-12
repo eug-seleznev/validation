@@ -24,6 +24,7 @@ const ValidationForm = ({link}) => {
         win: null,
         auth: false
     })
+    const [errMsg, setErrMsg] = useState('')
 
 
     useEffect(() => {
@@ -39,31 +40,24 @@ const ValidationForm = ({link}) => {
 
 
 
-    useEffect(() => {
-      if(validationCode.length>4){
-          ValidateCode({validationCode, link}).then((res) => {
-            if (res.status) {
-              setWinner({ loaded: true, win: res.value, auth: true });
-            } else {
-              setWinner({ loaded: true, auth: false });
-            }
-          });
-      }
-      
-    }, [validationCode]);
 
     const onSubmit = (e) => {
-      e.preventDefault();
-      const validation = code.split('-').join('')
-      setValidationCode(validation)
-      //server validation
+      e.preventDefault()
+      const validation = validationCode.split('-').join('')
+
+        if(validation.length==16){
+                ValidateCode({validation, link}).then((res) => {
+                  if (res.status) {
+                    setWinner({ loaded: true, win: res.value, auth: true });
+                  } else {
+                    setWinner({ loaded: true, auth: false });
+                    setErrMsg(res.msg)
+                  }
+                });
+            }
     }
 
 
-    const handleCode = (e) => {
-  
-    setCode(e.target.value);
-    }
 
 
 
@@ -77,7 +71,7 @@ const ValidationForm = ({link}) => {
           </Textfit>
           <p className={styles.subtitle}>ДЛЯ ПОЛУЧЕНИЯ ПРИЗА ОСТАЛОСЬ ВВЕСТИ ВАЛИДАЦИОННЫЙ КОД, НАПИСАННЫЙ НА ИНСТРУКЦИИ</p>
           <form onSubmit={onSubmit} className={formStyles.validForm}>
-          <InputMask mask="****-****-****-****" alwaysShowMask={false} value={code} onChange={handleCode}>
+          <InputMask mask="****-****-****-****" alwaysShowMask={false} value={validationCode} onChange={e=>setValidationCode(e.target.value)}>
             {(inputProps) => 
             <input {...inputProps} 
               // type="tel" 
@@ -103,7 +97,7 @@ const ValidationForm = ({link}) => {
             ) : (
               <ErrorScreen
                 title='НЕВЕРНЫЙ КОД'
-                subtitle='ПРОВЕРЬТЕ ПРАВИЛЬНОСТЬ НАПИСАНИЯ И ЗАПОЛНИТЕ ФОРМУ ЕЩЕ РАЗ'
+                subtitle={errMsg}
                 button='ПОВТОРИТЬ'
                 onClick={() => setWinner({ loaded: false, win: null, auth: null })}
               />
@@ -122,18 +116,18 @@ export default ValidationForm
 
 
 
-const ValidateCode = async ({ validationCode, link }) => {
+const ValidateCode = async ({ validation, link }) => {
   try {
     const code = {
-      code: validationCode,
+      code: validation,
     };
     const res = await axios.put(ip + `codes/win/${link}`, code);
     return res.data;
     
   } catch (err) {
     const res = {
-      msg: err.response.data.err.msg,
-      status: err.response.data.err.status,
+      msg: err.response.data.err,
+      status: err.response.data.status,
     };
     return res;
   }

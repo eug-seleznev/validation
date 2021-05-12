@@ -15,10 +15,15 @@ const Validation = ({match}) => {
     const [loaded, setLoaded] = useState('')
     const [code, setCode] = useState('')
     const [win, setWin] = useState('')
+    const [totalSum, setTotalSum] = useState(false)
+    const [pazzleCounter, setPazzleCounter] = useState(0)
+    const [errMsg, setErrMsg] = useState('')
+    const [dateInvalid, setDateInvalid] = useState(false)
     
     useEffect(() => 
     {
         ValidateLink(link).then(res => {
+          console.log(res)
           if(res.status == 200){
             setLoaded('start')
             if(res.data.status==302){
@@ -26,13 +31,18 @@ const Validation = ({match}) => {
               setCode(res.data.code)
               setWin(res.data.value)
             } else if (res.data.phone){
+              setTotalSum(res.data.totalSum)
+              setPazzleCounter(res.data.count)
               setLoaded('payment')
               setCode(res.data.code)
               setWin(res.data.value)
             }
             
           } else if (res.status == 400){
+            // if()
             setLoaded('payed')
+            setErrMsg(res.data.err)
+            res.data.dateInvalid && setLoaded('dateInvalid')
           } else if (res.status == 404) {
             setLoaded('404')
           } 
@@ -47,22 +57,22 @@ const Validation = ({match}) => {
         {loaded=='start' ? (
           <ValidationForm link={link} />
         ) :
-        loaded=='validated' ? (
+        loaded=='asd' ? (
           <WinnerPage  win={win} code={code}  />
         ) :
         loaded=='payment' ? (
-          <CardPage  win={win} code={code}  />
+          <CardPage  win={win} code={code} totalSum={totalSum} counter={pazzleCounter} />
         ) :
         loaded=='payed' ? (
           <div className={styles.notFound}>
             <div>
               <h3>400</h3>
-              <p>Этот код уже оплачен</p>
+              <p>{errMsg}</p>
             </div>
             <NavLink to='/site'>ПЕРЕЙТИ НА САЙТ</NavLink>
           </div>
         ) :
-        loaded=='404' &&
+        loaded=='404' ?
         (
           <div className={styles.notFound}>
             <div>
@@ -71,7 +81,17 @@ const Validation = ({match}) => {
             </div>
             <NavLink to='/site'>ПЕРЕЙТИ НА САЙТ</NavLink>
           </div>
-        )}
+        ) :
+        loaded=='validated' && (
+          <div className={styles.dateInvalid}>
+            <div>
+              <h3>400</h3>
+              <p>К сожалению, для данного паззла выигрыш больше недоступен. Согласно <a href='' className={styles.inTextA}>Правилам Акции</a> ввести данные и получить приз можно было только в течение одной недели с момента активации кода.</p>
+            </div>
+            <NavLink to='/site'>ПЕРЕЙТИ НА САЙТ</NavLink>
+          </div>
+        )
+        }
       </div>
     );
 }
