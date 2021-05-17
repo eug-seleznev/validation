@@ -26,6 +26,7 @@ const WinAnimation = ({win, closeAnimation}) => {
     return new Promise(function(res,rej) {
         setTimeout(()=>{
           setPrizes()
+          navigator.vibrate(50)
           res(true) 
         },120)
   })}
@@ -65,7 +66,7 @@ const WinAnimation = ({win, closeAnimation}) => {
     vibration()
    }
    useEffect(()=>{
-   vibration()
+      state && vibration()
 
    },[state])
 
