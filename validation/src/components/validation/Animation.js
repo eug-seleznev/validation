@@ -78,9 +78,7 @@ const WinAnimation = ({win, closeAnimation}) => {
             <div className={styles.canvas}>
               <NewCanvas win={prize} delay={0.12} />
             </div>
-            {/* <Textfit mode="single" className={styles.prize} max={120} >
-              {prize}
-            </Textfit> */}
+          
             <h3>рублей</h3>
           </div>
         </div>
