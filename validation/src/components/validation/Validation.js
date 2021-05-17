@@ -44,16 +44,15 @@ const ValidationForm = ({link}) => {
     const onSubmit = (e) => {
       e.preventDefault()
       const validation = validationCode.replaceAll('-','')
-        if(validation.length==16){
-                ValidateCode({validation, link}).then((res) => {
-                  if (res.status) {
-                    setWinner({ loaded: true, win: res.value, auth: true });
-                  } else {
-                    setWinner({ loaded: true, auth: false });
-                    setErrMsg(res.msg)
-                  }
-                });
-            }
+      // console.log(validation)
+      ValidateCode({validation, link}).then((res) => {
+        if (res.status) {
+          setWinner({ loaded: true, win: res.value, auth: true });
+        } else {
+          setWinner({ loaded: true, auth: false });
+          setErrMsg(res.msg)
+        }
+      })
     }
 
 

@@ -17,7 +17,7 @@ const CardPage = ({win,code, totalSum, counter}) => {
     const [phone, setPhone] = useState('')
 
 
-
+console.log('totalSum:',totalSum)
     const sendOnCard = () => {
         const cardNumber = card.replace(/ /g,'')
         EnterCard(code,cardNumber).then((res) => {
