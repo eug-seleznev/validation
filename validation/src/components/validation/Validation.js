@@ -43,7 +43,7 @@ const ValidationForm = ({link}) => {
 
     const onSubmit = (e) => {
       e.preventDefault()
-      const validation = validationCode.replaceAll('-','')
+      const validation = validationCode.split('-').join('')
       // console.log(validation)
       ValidateCode({validation, link}).then((res) => {
         if (res.status) {
@@ -91,7 +91,7 @@ const ValidationForm = ({link}) => {
           </>
         ) : (
           winners.auth ? (
-              <WinnerPage win={winners.win} code={validationCode.replaceAll('-','')} />
+              <WinnerPage win={winners.win} code={validationCode.split('-').join('')} />
             ) : (
               <ErrorScreen
                 title='НЕВЕРНЫЙ КОД'
