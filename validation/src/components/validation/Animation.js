@@ -55,7 +55,6 @@ const WinAnimation = ({win, closeAnimation}) => {
 
   const vibration = () => {
     navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
-    console.log(navigator)
     if (navigator.vibrate) {
       // vibration API supported
         navigator.vibrate(1000);

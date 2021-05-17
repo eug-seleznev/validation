@@ -23,7 +23,6 @@ const Validation = ({match}) => {
     useEffect(() => 
     {
         ValidateLink(link).then(res => {
-          console.log(res)
           if(res.status == 200){
             setLoaded('start')
             if(res.data.status==302){
