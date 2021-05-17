@@ -86,7 +86,7 @@ const WinAnimation = ({win, closeAnimation}) => {
           </div>
         </div>
         {next?
-        <button onClick={closeAnimation}>ПРОДЛОЖИТЬ</button>:
+        <button onClick={closeAnimation}>ПРОДОЛЖИТЬ</button>:
         <button>???</button>
         }
 
@@ -121,7 +121,7 @@ const WinAnimation = ({win, closeAnimation}) => {
               <h2 className={styles.winwinRub}>рублей</h2>
             </div>
           </div>
-          <button onClick={closeAnimation}>ПРОДЛОЖИТЬ</button>
+          <button onClick={closeAnimation}>ПРОДОЛЖИТЬ</button>
           </animated.div>
         </div>
       </CSSTransition>
