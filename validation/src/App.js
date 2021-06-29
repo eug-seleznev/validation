@@ -8,6 +8,7 @@ import Validation from './components/validation';
 import Layout from './components/layout';
 import NotFound from './components/errorScreen/pageNotFound'
 import { useEffect } from 'react';
+import FakeValidationForm from './components/fakeWinner/FakeValidation';
 
 const  App = () => {
   const history = createBrowserHistory();
@@ -21,6 +22,7 @@ const  App = () => {
         <div className={styles.content}>
           <Switch>
               <Route exact path="/validation/:link" component={Validation} />
+              <Route exact path="/winner" component={FakeValidationForm} />
               <Route exact path="*" component={NotFound} />
           </Switch>
         </div>

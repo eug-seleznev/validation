@@ -110,7 +110,24 @@ $box-size: 85vw
 
 
 
+.fakeText
+  @include base.prime-font
+  transform: translateY(-70px)
+  margin-left: 20px
+  margin-right: 20px
 
+.fakeRools
+  @include base.border-button
+  transform: translateY(-50px)
+  font-size: 20px
+  text-align: center
+  text-decoration: none
+  width: 90%
+
+.rickBotBorder
+  width: $box-size
+  background-color: base.$primary-color
+  height: 80px
 
 
 @media screen and ( min-width: 500px )
@@ -124,7 +141,7 @@ $box-size: 85vw
         
   .prizeBox
     width: 100%
-    height: auto
+    height: 350px
     .innerBox
       height: 100%
       box-sizing: border-box

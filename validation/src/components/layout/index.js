@@ -7,7 +7,7 @@ const Layout = () => {
     return (
     
     <div className={styles.layout}>
-        <button>правила</button>
+        <a href='https://millionpuzzle.ru/privacy-policy' >правила</a>
         <address>info@moneypuzzle.ru</address>
     </div>
     );
