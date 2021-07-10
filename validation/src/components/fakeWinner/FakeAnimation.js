@@ -22,24 +22,22 @@ const FakeWinAnimation = ({win, closeAnimation}) => {
     setPrize(prizes[random]) 
   }
   
-  const timeout = () =>{ 
-    return new Promise(function(res,rej) {
-        setTimeout(()=>{
-          setPrizes()
-          navigator.vibrate(50)
-          res(true) 
-        },120)
-  })}
 
   const cycle = async () =>{ 
-    for (let i=0; i<40; i++){
-      if(i<39){
-        await timeout()
+    let count = 0
+    const tik = setInterval(()=>{
+      if(count<39){
+        count++
+        setPrizes()
+        const canVibrate = navigator.vibrate
+        canVibrate && navigator.vibrate(50)
+        
       } else {
         setPrize(win)
         setNext(true)
+        clearInterval(tik)
       }
-    }
+    },120)
   }
 
   useEffect(()=>{
@@ -54,19 +52,16 @@ const FakeWinAnimation = ({win, closeAnimation}) => {
   })
 
   const vibration = () => {
-    navigator.vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
-    if (navigator.vibrate) {
-      // vibration API supported
-        navigator.vibrate(1000);
-    }
+    const canVibrate = navigator.vibrate
+    canVibrate && navigator.vibrate(1000);
   }
+
    const winwinEntered = () => {
     toggle(true)
     vibration()
    }
    useEffect(()=>{
       state && vibration()
-
    },[state])
 
     return (
