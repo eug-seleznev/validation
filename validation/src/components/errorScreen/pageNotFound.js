@@ -10,7 +10,7 @@ const ErrorScreen = ({title, subtitle, button, onClick}) => {
               <h3>404</h3>
               <p>Страницы нет</p>
             </div>
-            <NavLink to='/site'>ПЕРЕЙТИ НА САЙТ</NavLink>
+            <a href='https://millionpuzzle.ru/'>ПЕРЕЙТИ НА САЙТ</a>
         </div>
     )
 }
