@@ -1,10 +1,8 @@
-import { useEffect, useState, useRef, Suspense } from "react"
+import { useEffect, useState,} from "react"
 import styles from '../../styles/animation.module.sass'
 import { CSSTransition } from 'react-transition-group';
 import { useSpring, animated } from '@react-spring/web'
 import Textfit from 'react-textfit'
-import {Glitch, EffectComposer,} from '@react-three/postprocessing'
-import {Canvas, useFrame} from '@react-three/fiber'
 import NewCanvas from "./canvas";
 
 const WinAnimation = ({win, closeAnimation}) => {

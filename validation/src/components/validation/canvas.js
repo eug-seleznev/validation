@@ -1,14 +1,8 @@
-import { useEffect, useState, useRef, Suspense, useMemo } from "react"
-import styles from '../../styles/animation.module.sass'
-import { CSSTransition } from 'react-transition-group';
-import { useSpring, animated } from '@react-spring/web'
-import Textfit from 'react-textfit'
-import {Glitch, EffectComposer, Noise} from '@react-three/postprocessing'
-import {Canvas, useFrame, useThree, } from '@react-three/fiber'
-import {a} from 'react-spring/three'
+import { Suspense } from "react"
+import {Glitch, EffectComposer, } from '@react-three/postprocessing'
+import {Canvas, } from '@react-three/fiber'
 import {GlitchMode} from 'postprocessing'
 import {Text} from '@react-three/drei'
-import {preloadFont} from 'troika-three-text'
 
 
 
