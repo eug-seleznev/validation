@@ -45,7 +45,7 @@ const CardPage = ({win,code, totalSum, counter}) => {
 
     return (
       <div className={styles.cardPage}>
-        {win<=50 && ( error? 
+        {win<=20 && ( error? 
           <ErrorScreen 
               title='ЧТО-ТО ПОШЛО НЕ ТАК'
               subtitle='Проверьте правильность заполнения и попробуйте еще раз'
@@ -83,7 +83,7 @@ const CardPage = ({win,code, totalSum, counter}) => {
           <button onClick={closeTab}>ЗАКРЫТЬ</button>
         </>)}
 
-        {win>50 && win<=4000 && (error? 
+        {win>20 && win<=4000 && (error? 
           <ErrorScreen 
               title='ЧТО-ТО ПОШЛО НЕ ТАК'
               subtitle='Проверьте правильность заполнения и попробуйте еще раз'
