@@ -68,7 +68,7 @@ const Validation = ({match}) => {
               <h3>400</h3>
               <p>{errMsg}</p>
             </div>
-            <NavLink to='/site'>ПЕРЕЙТИ НА САЙТ</NavLink>
+            <a href='https://millionpuzzle.ru/'>ПЕРЕЙТИ НА САЙТ</a>
           </div>
         ) :
         loaded=='404' ?
@@ -78,7 +78,7 @@ const Validation = ({match}) => {
               <h3>404</h3>
               <p>Страницы нет</p>
             </div>
-            <NavLink to='/site'>ПЕРЕЙТИ НА САЙТ</NavLink>
+            <a href='https://millionpuzzle.ru/'>ПЕРЕЙТИ НА САЙТ</a>
           </div>
         ) :
         loaded=='dateInvalid' && (
@@ -87,7 +87,7 @@ const Validation = ({match}) => {
               <h3>400</h3>
               <p>К сожалению, для данного паззла выигрыш больше недоступен. Согласно <a href='' className={styles.inTextA}>Правилам Акции</a> ввести данные и получить приз можно было только в течение одной недели с момента активации кода.</p>
             </div>
-            <NavLink to='/site'>ПЕРЕЙТИ НА САЙТ</NavLink>
+            <a href='https://millionpuzzle.ru/'>ПЕРЕЙТИ НА САЙТ</a>
           </div>
         )
         }
